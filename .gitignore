@@ -1,0 +1,8 @@
+# ignore ALL .log files
+*.npy
+*.hdf5
+
+# ignore ALL files in ANY directory named temp
+unprocessed_data/*
+processed_data/*
+temp_train_test_data/*

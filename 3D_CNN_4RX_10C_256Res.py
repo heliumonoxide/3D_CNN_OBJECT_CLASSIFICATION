@@ -4,8 +4,8 @@ import numpy as np
 from sklearn.preprocessing import LabelBinarizer
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D
-from tensorflow.keras.layers import MaxPooling2D
+from tensorflow.keras.layers import Conv3D
+from tensorflow.keras.layers import MaxPooling3D
 from tensorflow.keras.layers import Activation
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
@@ -19,19 +19,23 @@ import time
 gpus = tf.config.experimental.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(gpus[0], True)
 
+# Documentation of 3D Convolution: https://keras.io/api/layers/convolution_layers/convolution3d/ and https://www.analyticsvidhya.com/blog/2022/05/building-a-3d-cnn-in-tensorflow/ 
+
 def model_bryan():
     ##merancang model CNN##
     model1 = Sequential()
     # layer 1
-    model1.add(Conv2D(8, (3, 3), padding='same', input_shape=(256, 256,
-                                                              2)))  # dengan padding='same' output dari konvolusi hasilnya akan sama dengan ukuran inputnya, dengan cara menambahkan angka 0 di sisanya
-    model1.add(Activation('relu'))  # menghilangkan nilai negatif
+    model1.add(Conv3D(8, (3, 3, 3), padding='same', input_shape=(256, 256, 256, 1), Activation='relu'))  # dengan padding='same' output dari konvolusi hasilnya akan sama dengan ukuran inputnya, dengan cara menambahkan angka 0 di sisanya
+    model1.add(Conv3D(8, (3, 3, 3), padding='same', Activation='relu'))  # dengan padding='same' output dari konvolusi hasilnya akan sama dengan ukuran inputnya, dengan cara menambahkan angka 0 di sisanya
+
     model1.add(
-        MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))  # Mengambil nilai maksimum. bisa juga pool_sizenya 3x3 5x5 9x9
+        MaxPooling3D(pool_size=(3, 3, 3), strides=(3, 3, 3)))  # Mengambil nilai maksimum. bisa juga pool_sizenya 3x3 5x5 9x9
+    
     # layer 2
-    model1.add(Conv2D(16, (3, 3), padding='same'))
-    model1.add(Activation('relu'))
-    model1.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    model1.add(Conv3D(16, (3, 3, 3), padding='same', Activation='relu'))
+    model1.add(Conv3D(16, (3, 3, 3), padding='same', Activation='relu'))
+    model1.add(MaxPooling3D(pool_size=(3, 3, 3), strides=(3, 3, 3)))
+
     # layer Hidden
     model1.add(Flatten())  # karena masih 2 dimensi, ubah ke 1 dimensi
     model1.add(Dense(10, input_dim=1, activation='relu'))
@@ -44,7 +48,7 @@ def model_bryan():
     model1.add(Dense(10, activation='relu'))
     model1.add(Dense(10, activation='relu'))
     # layer Klasifikasi
-    model1.add(Dense(2, activation='softmax'))  # karena ada 2 kelas yang diklasifikasikan. untuk activation, gunakan sigmoid jika hanya 2 kelas, jika lebih softmax
+    model1.add(Dense(4, activation='softmax'))  # karena ada 2 kelas yang diklasifikasikan. untuk activation, gunakan sigmoid jika hanya 2 kelas, jika lebih softmax
 
     # melihat desain model CNN yang sudah dibuat
     model1.summary()
@@ -111,13 +115,13 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
     Train_label=lb.fit_transform(Train_label)
     Valid_label=lb.fit_transform(Valid_label)
 
-    if not os.path.exists(MODEL_SAVE_FOLDER_PATH+str(n_fold)+'/'):
-        os.mkdir(MODEL_SAVE_FOLDER_PATH+str(n_fold)+'/')
+    if not os.path.exists(MODEL_SAVE_FOLDER_PATH+object+'/'):
+        os.mkdir(MODEL_SAVE_FOLDER_PATH+object+'/')
 
-    if not os.path.exists(MODEL_SAVE_FOLDER_PATH+str(n_fold)+'/'+object+'/'):
-        os.mkdir(MODEL_SAVE_FOLDER_PATH+str(n_fold)+'/'+object+'/')
+    if not os.path.exists(MODEL_SAVE_FOLDER_PATH+object+'/'+str(n_fold)+'/'):
+        os.mkdir(MODEL_SAVE_FOLDER_PATH+object+'/'+str(n_fold)+'/')
 
-    model_path = MODEL_SAVE_FOLDER_PATH+str(n_fold)+'/'+object+'/'+'best_weight.hdf5'
+    model_path = MODEL_SAVE_FOLDER_PATH+object+'/'+str(n_fold)+'/'+'best_weight.hdf5'
     checkpoint = ModelCheckpoint(filepath=model_path, monitor='val_loss', verbose=1, save_best_only=True)
 
 
@@ -137,7 +141,7 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
 
     # mencatat computational cost dalam bentuk .txt
     orig_stdout = sys.stdout
-    nama_txt='computational_cost/'+object+'_ComputationalCost_CNN2Rx_'+str(n_fold)+'.txt'
+    nama_txt='processed_cnn/computational_cost/'+object+'_ComputationalCost_CNN2Rx_'+str(n_fold)+'.txt'
     f = open(nama_txt, 'w')
     sys.stdout = f
     print("The time of execution of above program is :", (end - start) * 10 ** 3, "ms")
@@ -145,7 +149,7 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
     f.close()
 
     print("The time of execution of above program is :", (end - start) * 10 ** 3, "ms")
-    plot_acc_lost(MODEL_SAVE_FOLDER_PATH+str(n_fold)+'/', history)
+    plot_acc_lost(MODEL_SAVE_FOLDER_PATH+object+'/', history)
     print("\n training is done!! \n")
 
     # Print Validation Loss and Accuracy
@@ -162,22 +166,17 @@ def k_fold_training(n_folds,model_save_path,batch_size,epochs):
     model = model_bryan()
     for i in range(n_folds):
         print("Training on Fold: ", i+1)
-        # data_latih, data_uji, label_data_latih, label_data_uji = create_data_train_test(kelas_1_rx1,kelas_1_rx2,kelas_2_rx1,kelas_2_rx2)
         data_latih = np.load("temp_train_test_data/trainX_256_dummy.npy")
-        data_uji = np.load("temp_train_test_data/testX_256_dummy.npy")
         label_data_latih = np.load("temp_train_test_data/trainY_256_dummy.npy")
+        data_uji = np.load("temp_train_test_data/testX_256_dummy.npy")
         label_data_uji = np.load("temp_train_test_data/testY_256_dummy.npy")
         history=model_train(model_save_path, data_latih, label_data_latih, data_uji, label_data_uji, batch_size,epochs, i+1, alpha, model, objek)
         model_history.append(history)
         # alpha = alpha * 0.1
     return model_history
 
-# data_rx1='processed_data/Data_Human_Rx1_1m.csv'
-# data_rx2='processed_data/Data_Human_Rx2_1m.csv'
-# data_rx3='processed_data/Data_WalkingHuman_Rx1_1m.csv'
-# data_rx4='processed_data/Data_WalkingHuman_Rx2_1m.csv'
-jumlah_n_folds=4
+jumlah_n_folds=1
 folder_simpan_weight='processed_cnn/weight_hasil/'
 Batch_Size = 32
-Epochs=30
+Epochs=70
 k_fold_training(jumlah_n_folds,folder_simpan_weight,Batch_Size,Epochs)

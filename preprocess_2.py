@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
 
@@ -18,88 +17,163 @@ class MyLabelBinarizer(LabelBinarizer):
             return super().inverse_transform(Y, threshold)
 
 
-def create_data_train_test(kelas_1_rx1,kelas_1_rx2,kelas_2_rx1,kelas_2_rx2):
+def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kelas_2_rx2,kelas_2_rx3,kelas_3_rx1,kelas_3_rx2,kelas_3_rx3,kelas_4_rx1,kelas_4_rx2,kelas_4_rx3):
     arraygabungan = []
     arraygabungan2 = []
+    arraygabungan3 = []
+    arraygabungan4 = []
 
-    rx1 =  np.load(kelas_1_rx1)
-    print("rx 1 done")
+    class1_rx1 =  np.load(kelas_1_rx1)
+    print("kelas 1 rx 1 done")
 
-    rx2 = np.load(kelas_1_rx2)  # baca file data receiver pertama
-    print("rx 2 done")
+    class1_rx2 = np.load(kelas_1_rx2)
+    print("kelas 1 rx 2 done")
 
-    rx3 = np.load(kelas_2_rx1)  # baca file data receiver pertama
-    print("rx 3 done")
+    class1_rx3 = np.load(kelas_1_rx3)
+    print("kelas 1 rx 3 done")
 
-    rx4 = np.load(kelas_2_rx2)  # baca file data receiver pertama
-    print("rx 4 done")
+    class2_rx1 = np.load(kelas_2_rx1)
+    print("kelas 2 rx 1 done")
+    
+    class2_rx2 = np.load(kelas_2_rx2)
+    print("kelas 2 rx 2 done")
+    
+    class2_rx3 = np.load(kelas_2_rx3)
+    print("kelas 2 rx 3 done")
+    
+    class3_rx1 = np.load(kelas_3_rx1)
+    print("kelas 3 rx 1 done")
+    
+    class3_rx2 = np.load(kelas_3_rx2)
+    print("kelas 3 rx 2 done")
+    
+    class3_rx3 = np.load(kelas_3_rx3)
+    print("kelas 3 rx 3 done")
+    
+    class4_rx1 = np.load(kelas_4_rx1)
+    print("kelas 4 rx 1 done")
+    
+    class4_rx2 = np.load(kelas_4_rx2)
+    print("kelas 4 rx 2 done")
+    
+    class4_rx3 = np.load(kelas_4_rx3)
+    print("kelas 4 rx 3 done")
 
     count = 0
     ukuran_image_yang_diset = 256
 
     for k in range(1024):
-        fft_rx2 = []  # buat array kosong untuk menampung data receiver kedua
-        fft_rx1 = []  # buat array kosong untuk menampung data receiver pertama
-        fft_rx3 = []  # buat array kosong untuk menampung data receiver ketiga
-        fft_rx4 = []  # buat array kosong untuk menampung data receiver keempat
+        fft1_rx1 = []  # buat array kosong untuk menampung data receiver pertama kelas 1
+        fft1_rx2 = []  # buat array kosong untuk menampung data receiver kedua kelas 1
+        fft1_rx3 = []  # buat array kosong untuk menampung data receiver ketiga kelas 1
+        fft2_rx1 = []  # buat array kosong untuk menampung data receiver pertama kelas 2
+        fft2_rx2 = []  # buat array kosong untuk menampung data receiver kedua kelas 2
+        fft2_rx3 = []  # buat array kosong untuk menampung data receiver ketiga kelas 2
+        fft3_rx1 = []  # buat array kosong untuk menampung data receiver pertama kelas 3
+        fft3_rx2 = []  # buat array kosong untuk menampung data receiver kedua kelas 3
+        fft3_rx3 = []  # buat array kosong untuk menampung data receiver ketiga kelas 3
+        fft4_rx1 = []  # buat array kosong untuk menampung data receiver pertama kelas 4
+        fft4_rx2 = []  # buat array kosong untuk menampung data receiver kedua kelas 4
+        fft4_rx3 = []  # buat array kosong untuk menampung data receiver ketiga kelas 4
+
         for i in range(ukuran_image_yang_diset):
-            rx11 = rx1[0][i + count]  # membaca data receiver1 yang berada pada kolom pertama sumber data
-            fft_rx1.append(rx11)  # memasukkan hasil pembacaan data receiver1 pada array yang telah disediakan
-            rx22 = rx2[0][i + count]  # membaca data receiver2 yang berada pada kolom kedua sumber data
-            fft_rx2.append(rx22)  # memasukkan hasil pembacaan data receiver2 pada array yang telah disediakan
-            rx33 = rx3[0][i + count]  # membaca data receiver1 yang berada pada kolom pertama sumber data
-            fft_rx3.append(rx33)  # memasukkan hasil pembacaan data receiver1 pada array yang telah disediakan
-            rx44 = rx4[0][i + count]  # membaca data receiver2 yang berada pada kolom kedua sumber data
-            fft_rx4.append(rx44)  # memasukkan hasil pembacaan data receiver2 pada array yang telah disediakan
-        # fft_rx1 = np.array(fft_rx1)  # merubah format fft_rx1 menjadi array
-        # fft_rx2 = np.array(fft_rx2)  # merubah format fft_rx2 menjadi array
+            rx11 = class1_rx1[0][i + count]  
+            fft1_rx1.append(rx11)  
+            rx12 = class1_rx2[0][i + count]  
+            fft1_rx2.append(rx12)
+            rx13 = class1_rx3[0][i + count]  
+            fft1_rx3.append(rx13)  
+            rx21 = class2_rx1[0][i + count]  
+            fft2_rx1.append(rx21)  
+            rx22 = class2_rx2[0][i + count]  
+            fft2_rx2.append(rx22)  
+            rx23 = class2_rx3[0][i + count]  
+            fft2_rx3.append(rx23)
+            rx31 = class3_rx1[0][i + count]  
+            fft3_rx1.append(rx31)  
+            rx32 = class3_rx2[0][i + count]  
+            fft3_rx2.append(rx32)  
+            rx33 = class3_rx3[0][i + count]  
+            fft3_rx3.append(rx33)  
+            rx41 = class4_rx1[0][i + count]  
+            fft4_rx1.append(rx41)  
+            rx42 = class4_rx2[0][i + count]  
+            fft4_rx2.append(rx42)  
+            rx43 = class4_rx3[0][i + count]
+            fft4_rx3.append(rx43)  
+            
+        # ======== Done for loop and saving last i into count =======
         count = i
 
-        #####buat image 1048x1048, sebanyak 2 layer#####
-        array = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, 2])  # membuat array kosong, 2 layer
-        array2 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, 2])  # membuat array kosong, 2 layer
+        #####buat data tensor kubus 256x256x256#####
+        array_kelas1 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
+        array_kelas2 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
+        array_kelas3 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
+        array_kelas4 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
+
         # masukkan nilai dari receiver pertama pada layer pertama, dan nilai receiver kedua pada layer kedua
-        for i in range(len(fft_rx1)):
-            for j in range(len(fft_rx2)):
-                array[i, j] = [fft_rx1[i], fft_rx2[j]]
-                array2[i, j] = [fft_rx3[i], fft_rx4[j]]
+        for i in range(ukuran_image_yang_diset):
+            for j in range(ukuran_image_yang_diset):
+                for k in range(ukuran_image_yang_diset):
+                    array_kelas1[i, j, k] = [fft1_rx1[i], fft1_rx2[j], fft1_rx3[k]]
+                    array_kelas2[i, j, k] = [fft2_rx1[i], fft2_rx2[j], fft2_rx3[k]]
+                    array_kelas3[i, j, k] = [fft3_rx1[i], fft3_rx2[j], fft3_rx3[k]]
+                    array_kelas4[i, j, k] = [fft4_rx1[i], fft4_rx2[j], fft4_rx3[k]]
         # cek ukuran array yang sudah terisi
         # print(array.shape)
         # print(array)
         arraygabungan.append(
-            array)  # memasukkan array gabungan receiver pertama dan receiver kedua ke dalam array kosong yang telah disediakan
+            array_kelas1)
         arraygabungan2.append(
-            array2)  # memasukkan array gabungan receiver pertama dan receiver kedua ke dalam array kosong yang telah disediakan
-        # arraygabungan = np.array(arraygabungan)
+            array_kelas2)
+        arraygabungan3.append(
+            array_kelas3)
+        arraygabungan4.append(
+            array_kelas4)
+        
     print("Done proses penyatuan array")
+
     Label = []
     Label2 = []
+    Label3 = []
+    Label4 = []
+
     for i in range(1024):
         Label.append('Human')
         Label2.append('Bunny')
+        Label3.append('Object3')
+        Label4.append('Object4')
 
-    GambarGabungan = np.concatenate((arraygabungan, arraygabungan2))
-    LabelGabungan = np.concatenate((Label, Label2))
+    GambarGabungan = np.concatenate((arraygabungan, arraygabungan2, arraygabungan3, arraygabungan4))
+    LabelGabungan = np.concatenate((Label, Label2, Label3, Label4))
 
     # mengubah format array label ke dalam biner
     lb = MyLabelBinarizer()
     label = lb.fit_transform(LabelGabungan)
     # membagi data citra ke dalam data latih dan data uji
     # X itu gambar, Y itu label
-    (trainX, testX, trainY, testY) = train_test_split(np.array(GambarGabungan), np.array(label), test_size=0.25)
+    (trainX, testX, trainY, testY) = train_test_split(np.array(GambarGabungan), np.array(label), test_size=0.2)
     print(trainX.shape)
     print(testX.shape)
 
     return trainX, testX, trainY, testY
 
-data_rx1='unpredicted_data/datafft_1_human_1mtr.npy'
-data_rx2='unpredicted_data/datafft_2_human_1mtr.npy'
-data_rx3='unpredicted_data/datafft_1_bunny_1mtr.npy'
-data_rx4='unpredicted_data/datafft_2_bunny_1mtr.npy'
-latihX, cobaX, latihY, cobaY = create_data_train_test(data_rx1, data_rx2, data_rx3, data_rx4)
+class1_data_rx1='processed_data/datafft_1_human_1mtr.npy'
+class1_data_rx2='processed_data/datafft_2_human_1mtr.npy'
+class1_data_rx3='processed_data/datafft_1_bunny_1mtr.npy'
+class2_data_rx1='processed_data/datafft_2_bunny_1mtr.npy'
+class2_data_rx2='processed_data/datafft_1_human_1mtr.npy'
+class2_data_rx3='processed_data/datafft_2_human_1mtr.npy'
+class3_data_rx1='processed_data/datafft_1_bunny_1mtr.npy'
+class3_data_rx2='processed_data/datafft_2_bunny_1mtr.npy'
+class3_data_rx3='processed_data/datafft_1_human_1mtr.npy'
+class4_data_rx1='processed_data/datafft_2_human_1mtr.npy'
+class4_data_rx2='processed_data/datafft_1_bunny_1mtr.npy'
+class4_data_rx3='processed_data/datafft_2_bunny_1mtr.npy'
+latihX, cobaX, latihY, cobaY = create_data_train_test(class1_data_rx1, class1_data_rx2, class1_data_rx3, class2_data_rx1, class2_data_rx2, class2_data_rx3, class3_data_rx1, class3_data_rx2, class3_data_rx3, class4_data_rx1, class4_data_rx2, class4_data_rx3)
 
 
 np.save("temp_train_test_data/trainX_256_dummy.npy", latihX)
-np.save("temp_train_test_data/testX_256_dummy.npy", cobaX)
 np.save("temp_train_test_data/trainY_256_dummy.npy", latihY)
+np.save("temp_train_test_data/testX_256_dummy.npy", cobaX)
 np.save("temp_train_test_data/testY_256_dummy.npy", cobaY)

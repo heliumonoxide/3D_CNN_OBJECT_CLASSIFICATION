@@ -77,39 +77,39 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
         fft4_rx3 = []  # buat array kosong untuk menampung data receiver ketiga kelas 4
 
         for i in range(ukuran_image_yang_diset):
-            rx11 = class1_rx1[0][i + count]  
+            rx11 = class1_rx1[i + count]  
             fft1_rx1.append(rx11)  
-            rx12 = class1_rx2[0][i + count]  
+            rx12 = class1_rx2[i + count]  
             fft1_rx2.append(rx12)
-            rx13 = class1_rx3[0][i + count]  
+            rx13 = class1_rx3[i + count]  
             fft1_rx3.append(rx13)  
-            rx21 = class2_rx1[0][i + count]  
+            rx21 = class2_rx1[i + count]  
             fft2_rx1.append(rx21)  
-            rx22 = class2_rx2[0][i + count]  
+            rx22 = class2_rx2[i + count]  
             fft2_rx2.append(rx22)  
-            rx23 = class2_rx3[0][i + count]  
+            rx23 = class2_rx3[i + count]  
             fft2_rx3.append(rx23)
-            rx31 = class3_rx1[0][i + count]  
+            rx31 = class3_rx1[i + count]  
             fft3_rx1.append(rx31)  
-            rx32 = class3_rx2[0][i + count]  
+            rx32 = class3_rx2[i + count]  
             fft3_rx2.append(rx32)  
-            rx33 = class3_rx3[0][i + count]  
+            rx33 = class3_rx3[i + count]  
             fft3_rx3.append(rx33)  
-            rx41 = class4_rx1[0][i + count]  
+            rx41 = class4_rx1[i + count]  
             fft4_rx1.append(rx41)  
-            rx42 = class4_rx2[0][i + count]  
+            rx42 = class4_rx2[i + count]  
             fft4_rx2.append(rx42)  
-            rx43 = class4_rx3[0][i + count]
+            rx43 = class4_rx3[i + count]
             fft4_rx3.append(rx43)  
             
         # ======== Done for loop and saving last i into count =======
         count = i
 
         #####buat data tensor kubus 256x256x256#####
-        array_kelas1 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
-        array_kelas2 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
-        array_kelas3 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
-        array_kelas4 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
+        array_kelas1 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset, 3])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
+        array_kelas2 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset, 3])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
+        array_kelas3 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset, 3])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
+        array_kelas4 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset, 3])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
 
         # masukkan nilai dari receiver pertama pada layer pertama, dan nilai receiver kedua pada layer kedua
         for i in range(ukuran_image_yang_diset):
@@ -139,10 +139,10 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
     Label4 = []
 
     for i in range(1024):
-        Label.append('Human')
-        Label2.append('Bunny')
-        Label3.append('Object3')
-        Label4.append('Object4')
+        Label.append('Anoa')
+        Label2.append('Makaka_Nemestrina')
+        Label3.append('Makaka_Tonkeana')
+        Label4.append('OrangUtan')
 
     GambarGabungan = np.concatenate((arraygabungan, arraygabungan2, arraygabungan3, arraygabungan4))
     LabelGabungan = np.concatenate((Label, Label2, Label3, Label4))
@@ -158,22 +158,22 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
 
     return trainX, testX, trainY, testY
 
-class1_data_rx1='processed_data/datafft_1_human_1mtr.npy'
-class1_data_rx2='processed_data/datafft_2_human_1mtr.npy'
-class1_data_rx3='processed_data/datafft_1_bunny_1mtr.npy'
-class2_data_rx1='processed_data/datafft_2_bunny_1mtr.npy'
-class2_data_rx2='processed_data/datafft_1_human_1mtr.npy'
-class2_data_rx3='processed_data/datafft_2_human_1mtr.npy'
-class3_data_rx1='processed_data/datafft_1_bunny_1mtr.npy'
-class3_data_rx2='processed_data/datafft_2_bunny_1mtr.npy'
-class3_data_rx3='processed_data/datafft_1_human_1mtr.npy'
-class4_data_rx1='processed_data/datafft_2_human_1mtr.npy'
-class4_data_rx2='processed_data/datafft_1_bunny_1mtr.npy'
-class4_data_rx3='processed_data/datafft_2_bunny_1mtr.npy'
+class1_data_rx1='processed_data/datafft_Anoa_1_1mtr.npy'
+class1_data_rx2='processed_data/datafft_Anoa_2_1mtr.npy'
+class1_data_rx3='processed_data/datafft_Anoa_3_1mtr.npy'
+class2_data_rx1='processed_data/datafft_Makaka_Nemestrina_1_1mtr.npy'
+class2_data_rx2='processed_data/datafft_Makaka_Nemestrina_2_1mtr.npy'
+class2_data_rx3='processed_data/datafft_Makaka_Nemestrina_3_1mtr.npy'
+class3_data_rx1='processed_data/datafft_Makaka_Tonkeana_1_1mtr.npy'
+class3_data_rx2='processed_data/datafft_Makaka_Tonkeana_2_1mtr.npy'
+class3_data_rx3='processed_data/datafft_Makaka_Tonkeana_3_1mtr.npy'
+class4_data_rx1='processed_data/datafft_OrangUtan_1_1mtr.npy'
+class4_data_rx2='processed_data/datafft_OrangUtan_2_1mtr.npy'
+class4_data_rx3='processed_data/datafft_OrangUtan_3_1mtr.npy'
 latihX, cobaX, latihY, cobaY = create_data_train_test(class1_data_rx1, class1_data_rx2, class1_data_rx3, class2_data_rx1, class2_data_rx2, class2_data_rx3, class3_data_rx1, class3_data_rx2, class3_data_rx3, class4_data_rx1, class4_data_rx2, class4_data_rx3)
 
 
-np.save("temp_train_test_data/trainX_256_dummy.npy", latihX)
-np.save("temp_train_test_data/trainY_256_dummy.npy", latihY)
-np.save("temp_train_test_data/testX_256_dummy.npy", cobaX)
-np.save("temp_train_test_data/testY_256_dummy.npy", cobaY)
+np.save("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa.npy", latihX)
+np.save("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa.npy", latihY)
+np.save("temp_train_test_data/testX_256_4Class_OU-MN-MT-Anoa.npy", cobaX)
+np.save("temp_train_test_data/testY_256_4Class_OU-MN-MT-Anoa.npy", cobaY)

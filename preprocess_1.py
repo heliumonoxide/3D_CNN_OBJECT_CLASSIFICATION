@@ -5,12 +5,12 @@ import numpy as np
 # =========================
 
 # Tentukan path ke file biner
-file_path = 'unprocessed_data\\2BabyBunny3Week_1MTR_2RX_2lvds_128Chirp_8Frame_5000ksps.bin'
+file_path = 'unprocessed_data\\Anoa_1MTR_4RX_2lvds_128Chirp_8Frame_5000ksps_4.bin'
 
 # Spesifikasi konfigurasi sensor
 num_AdcSamples = 256  # Ganti sesuai dengan jumlah sampel pada setiap saluran
 num_adcBits = 16 
-num_RX = 2 # ganti jika digunakan 4 receiver
+num_RX = 4 # ganti jika digunakan 4 receiver
 num_Lanes = 2
 isReal = 0
 # =========================
@@ -105,7 +105,7 @@ if(num_RX == 1):
     # Melakukan penyesuaian pada data_fft_per_receiver
     data_fft_one[1:-1] *= 2
 
-    np.save("processed_data/datafft_1_2bunny_1mtr.npy", data_fft_one) # Ubah nama sesuai dengan nama objek
+    np.save("processed_data/datafft_Anoa_1_1mtr.npy", data_fft_one) # Ubah nama sesuai dengan nama objek
 
 elif(num_RX == 2):
     # Assign data receiver ke array numpy
@@ -134,8 +134,8 @@ elif(num_RX == 2):
 
     print(data_fft_one)
 
-    np.save("processed_data/datafft_1_2bunny_1mtr.npy", data_fft_one) # Ubah nama sesuai dengan nama objek
-    np.save("processed_data/datafft_2_2bunny_1mtr.npy", data_fft_two) # Ubah nama sesuai dengan nama objek
+    np.save("processed_data/datafft_Anoa_1_1mtr.npy", data_fft_one) # Ubah nama sesuai dengan nama objek
+    np.save("processed_data/datafft_Anoa_2_1mtr.npy", data_fft_two) # Ubah nama sesuai dengan nama objek
 
 elif(num_RX == 4):
     # Assign data receiver ke array numpy
@@ -174,10 +174,10 @@ elif(num_RX == 4):
     # data_fft_three = np.vstack((data_fft_three, data_fft_three))
     # data_fft_four = np.vstack((data_fft_four, data_fft_four))
 
-    np.save("processed_data/datafft_1_2bunny_1mtr.npy", data_fft_one) # Ubah nama sesuai dengan nama objek
-    np.save("processed_data/datafft_2_2bunny_1mtr.npy", data_fft_two) # Ubah nama sesuai dengan nama objek
-    np.save("processed_data/datafft_3_2bunny_1mtr.npy", data_fft_three) # Ubah nama sesuai dengan nama objek
-    np.save("processed_data/datafft_4_2bunny_1mtr.npy", data_fft_four) # Ubah nama sesuai dengan nama objek
+    np.save("processed_data/datafft_Anoa_1_1mtr.npy", data_fft_one) # Ubah nama sesuai dengan nama objek
+    np.save("processed_data/datafft_Anoa_2_1mtr.npy", data_fft_two) # Ubah nama sesuai dengan nama objek
+    np.save("processed_data/datafft_Anoa_3_1mtr.npy", data_fft_three) # Ubah nama sesuai dengan nama objek
+    np.save("processed_data/datafft_Anoa_4_1mtr.npy", data_fft_four) # Ubah nama sesuai dengan nama objek
 
 else:
     raise ValueError("Sorry, receiver used is not compatible")

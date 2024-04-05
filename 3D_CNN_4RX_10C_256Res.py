@@ -3,16 +3,16 @@ from PIL import Image
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer
 import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv3D
-from tensorflow.keras.layers import MaxPooling3D
-from tensorflow.keras.layers import Activation
-from tensorflow.keras.layers import Flatten
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.models import Sequential # type: ignore
+from tensorflow.keras.layers import Conv3D # type: ignore
+from tensorflow.keras.layers import MaxPooling3D # type: ignore
+from tensorflow.keras.layers import Activation # type: ignore
+from tensorflow.keras.layers import Flatten # type: ignore
+from tensorflow.keras.layers import Dense # type: ignore
+from tensorflow.keras.optimizers import Adam # type: ignore
 import matplotlib.pyplot as plt
 #from imutils import paths
-from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint # type: ignore
 import pandas as pd
 import time
 
@@ -156,6 +156,44 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
     test_eval = model.evaluate(Valid_data, Valid_label)
     print('Test Loss: ', test_eval[0])
     print('Test Accuracy: ', test_eval[1])
+    
+    # predictions = model1.predict(testX, batch_size=32)
+    #
+    # #menampilkan confusion matrix data uji
+    # confusion_matrix = metrics.confusion_matrix(testY.argmax(axis=1),predictions.argmax(axis=1))
+    # print(confusion_matrix)
+    #
+    # #membuat grafik confusion matrix data uji
+    # x_axis_labels = ['Human','Cat','Peacock']
+    # y_axis_labels = ['Human','Cat','Peacock']
+    # sn.heatmap(confusion_matrix, xticklabels=x_axis_labels, yticklabels=y_axis_labels, annot=True, fmt='d')
+    # plt.xlabel('Predicted')
+    # plt.ylabel('True')
+    # plt.tight_layout()
+    # plt.savefig('ConfMatHumanCatPeacock_CNN2Rx.jpg')
+    # plt.show()
+    #
+    # #membuat grafik confusion matrix data uji dalam persen
+    # x_axis_labels = ['Human','Cat','Peacock']
+    # y_axis_labels = ['Human','Cat','Peacock']
+    # persen = confusion_matrix/np.sum(confusion_matrix,axis=1,keepdims=True).astype(float)
+    # sn.heatmap(persen, xticklabels=x_axis_labels, yticklabels=y_axis_labels, annot=True, fmt='.2%')
+    # plt.xlabel('Predicted')
+    # plt.ylabel('True')
+    # plt.tight_layout()
+    # plt.savefig('ConfMatPersenHumanCatPeacock_CNN2Rx.jpg')
+    # plt.show()
+    #
+    # #classification report
+    # print(classification_report(testY.argmax(axis=1),predictions.argmax(axis=1), target_names=['Human','Cat','Peacock'] ))
+    #
+    # #mencatat classification report dalam bentuk .txt
+    # orig_stdout=sys.stdout
+    # f = open('classreportHumanCatPeacock_CNN2Rx.txt','w')
+    # sys.stdout = f
+    # print(classification_report(testY.argmax(axis=1),predictions.argmax(axis=1), target_names=['Human','Cat','Peacock'] ))
+    # sys.stdout = orig_stdout
+    # f.close()
 
     return history
 

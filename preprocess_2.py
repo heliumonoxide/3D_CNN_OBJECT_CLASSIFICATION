@@ -62,7 +62,9 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
     count = 0
     ukuran_image_yang_diset = 256
 
-    for k in range(1024):
+    for k in range(10):
+        print("Tensor data ke: ")
+        print(k)
         fft1_rx1 = []  # buat array kosong untuk menampung data receiver pertama kelas 1
         fft1_rx2 = []  # buat array kosong untuk menampung data receiver kedua kelas 1
         fft1_rx3 = []  # buat array kosong untuk menampung data receiver ketiga kelas 1
@@ -105,7 +107,7 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
         # ======== Done for loop and saving last i into count =======
         count = i
 
-        #####buat data tensor kubus 256x256x256#####
+        #####buat data tensor kubus256x256x256#####
         array_kelas1 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset, 3])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
         array_kelas2 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset, 3])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
         array_kelas3 = np.zeros([ukuran_image_yang_diset, ukuran_image_yang_diset, ukuran_image_yang_diset, 3])  # membuat tensor 3D kosong berbentuk kubus dengan dimensi 256
@@ -130,15 +132,24 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
             array_kelas3)
         arraygabungan4.append(
             array_kelas4)
+
+        array_kelas1 = None
+        array_kelas2 = None
+        array_kelas3 = None
+        array_kelas4 = None
         
     print("Done proses penyatuan array")
+    del array_kelas1
+    del array_kelas2
+    del array_kelas3
+    del array_kelas4
 
     Label = []
     Label2 = []
     Label3 = []
     Label4 = []
 
-    for i in range(1024):
+    for i in range(10):
         Label.append('Anoa')
         Label2.append('Makaka_Nemestrina')
         Label3.append('Makaka_Tonkeana')
@@ -146,6 +157,11 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
 
     GambarGabungan = np.concatenate((arraygabungan, arraygabungan2, arraygabungan3, arraygabungan4))
     LabelGabungan = np.concatenate((Label, Label2, Label3, Label4))
+
+    del arraygabungan
+    del arraygabungan2
+    del arraygabungan3
+    del arraygabungan4
 
     # mengubah format array label ke dalam biner
     lb = MyLabelBinarizer()
@@ -155,6 +171,8 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
     (trainX, testX, trainY, testY) = train_test_split(np.array(GambarGabungan), np.array(label), test_size=0.2)
     print(trainX.shape)
     print(testX.shape)
+
+    del GambarGabungan
 
     return trainX, testX, trainY, testY
 
@@ -173,7 +191,7 @@ class4_data_rx3='processed_data/datafft_OrangUtan_3_1mtr.npy'
 latihX, cobaX, latihY, cobaY = create_data_train_test(class1_data_rx1, class1_data_rx2, class1_data_rx3, class2_data_rx1, class2_data_rx2, class2_data_rx3, class3_data_rx1, class3_data_rx2, class3_data_rx3, class4_data_rx1, class4_data_rx2, class4_data_rx3)
 
 
-np.save("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa.npy", latihX)
-np.save("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa.npy", latihY)
-np.save("temp_train_test_data/testX_256_4Class_OU-MN-MT-Anoa.npy", cobaX)
-np.save("temp_train_test_data/testY_256_4Class_OU-MN-MT-Anoa.npy", cobaY)
+np.save("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_10data.npy", latihX)
+np.save("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_10data.npy", latihY)
+np.save("temp_train_test_data/testX_256_4Class_OU-MN-MT-Anoa_10data.npy", cobaX)
+np.save("temp_train_test_data/testY_256_4Class_OU-MN-MT-Anoa_10data.npy", cobaY)

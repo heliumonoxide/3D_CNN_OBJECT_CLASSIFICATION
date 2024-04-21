@@ -1,9 +1,8 @@
 import os, sys
-from PIL import Image
 import numpy as np
-from sklearn.preprocessing import LabelBinarizer
+from sklearn.preprocessing import LabelBinarizer # type: ignore
 import tensorflow as tf
-from tensorflow.keras.models import Sequential # type: ignore
+from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv3D # type: ignore
 from tensorflow.keras.layers import MaxPooling3D # type: ignore
 # from tensorflow.keras.layers import Activation # type: ignore
@@ -11,14 +10,13 @@ from tensorflow.keras.layers import AveragePooling3D # type: ignore
 from tensorflow.keras.layers import Flatten # type: ignore
 from tensorflow.keras.layers import Dense # type: ignore
 from tensorflow.keras.optimizers import Adam # type: ignore
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # type: ignore
 #from imutils import paths
 from tensorflow.keras.callbacks import ModelCheckpoint # type: ignore
-import pandas as pd
 import time
 
 gpus = tf.config.experimental.list_physical_devices('GPU')
-tf.config.experimental.set_memory_growth(gpus[0], True)
+# tf.config.experimental.set_memory_growth(gpus, True)
 
 # Documentation of 3D Convolution: https://keras.io/api/layers/convolution_layers/convolution3d/ and https://www.analyticsvidhya.com/blog/2022/05/building-a-3d-cnn-in-tensorflow/ 
 
@@ -26,7 +24,7 @@ def model_bryan():
     ##merancang model CNN##
     model1 = Sequential()
 
-    model1.add(AveragePooling3D(pool_size=(3, 3, 3), strides=(3, 3, 3), padding="valid", input_shape=(256, 256, 256, 3)))
+    model1.add(MaxPooling3D(pool_size=(3, 3, 3), strides=(2, 2, 2), padding="valid", input_shape=(256, 256, 256, 3)))
     # layer 1
     model1.add(Conv3D(8, (3, 3, 3), padding='same', activation='relu'))  # dengan padding='same' output dari konvolusi hasilnya akan sama dengan ukuran inputnya, dengan cara menambahkan angka 0 di sisanya
     model1.add(Conv3D(8, (3, 3, 3), padding='same', activation='relu'))  # dengan padding='same' output dari konvolusi hasilnya akan sama dengan ukuran inputnya, dengan cara menambahkan angka 0 di sisanya
@@ -41,15 +39,15 @@ def model_bryan():
 
     # layer Hidden
     model1.add(Flatten())  # karena masih 2 dimensi, ubah ke 1 dimensi
-    model1.add(Dense(10, input_dim=1, activation='relu'))
+    model1.add(Dense(20, input_dim=1, activation='relu'))
+    model1.add(Dense(18, activation='relu'))
+    model1.add(Dense(16, activation='relu'))
+    model1.add(Dense(14, activation='relu'))
+    model1.add(Dense(12, activation='relu'))
     model1.add(Dense(10, activation='relu'))
-    model1.add(Dense(10, activation='relu'))
-    model1.add(Dense(10, activation='relu'))
-    model1.add(Dense(10, activation='relu'))
-    model1.add(Dense(10, activation='relu'))
-    model1.add(Dense(10, activation='relu'))
-    model1.add(Dense(10, activation='relu'))
-    model1.add(Dense(10, activation='relu'))
+    # model1.add(Dense(10, activation='relu'))
+    # model1.add(Dense(10, activation='relu'))
+    # model1.add(Dense(10, activation='relu'))
     # layer Klasifikasi
     model1.add(Dense(4, activation='softmax'))  # karena ada 2 kelas yang diklasifikasikan. untuk activation, gunakan sigmoid jika hanya 2 kelas, jika lebih softmax
 
@@ -218,6 +216,6 @@ def k_fold_training(n_folds,model_save_path,batch_size,epochs):
 
 jumlah_n_folds=1
 folder_simpan_weight='processed_cnn/weight_hasil/'
-Batch_Size = 4
+Batch_Size = 1
 Epochs=70
 k_fold_training(jumlah_n_folds,folder_simpan_weight,Batch_Size,Epochs)

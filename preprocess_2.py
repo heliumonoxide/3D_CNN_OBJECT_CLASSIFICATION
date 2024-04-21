@@ -59,12 +59,12 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
     class4_rx3 = np.load(kelas_4_rx3)
     print("kelas 4 rx 3 done")
 
-    count = 0
+    count = 3840
     ukuran_image_yang_diset = 256
 
-    for k in range(10):
+    for k in range(15):
         print("Tensor data ke: ")
-        print(k)
+        print(k+1)
         fft1_rx1 = []  # buat array kosong untuk menampung data receiver pertama kelas 1
         fft1_rx2 = []  # buat array kosong untuk menampung data receiver kedua kelas 1
         fft1_rx3 = []  # buat array kosong untuk menampung data receiver ketiga kelas 1
@@ -149,7 +149,7 @@ def create_data_train_test(kelas_1_rx1,kelas_1_rx2, kelas_1_rx3,kelas_2_rx1,kela
     Label3 = []
     Label4 = []
 
-    for i in range(10):
+    for i in range(15):
         Label.append('Anoa')
         Label2.append('Makaka_Nemestrina')
         Label3.append('Makaka_Tonkeana')
@@ -191,7 +191,7 @@ class4_data_rx3='processed_data/datafft_OrangUtan_3_1mtr.npy'
 latihX, cobaX, latihY, cobaY = create_data_train_test(class1_data_rx1, class1_data_rx2, class1_data_rx3, class2_data_rx1, class2_data_rx2, class2_data_rx3, class3_data_rx1, class3_data_rx2, class3_data_rx3, class4_data_rx1, class4_data_rx2, class4_data_rx3)
 
 
-np.save("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_10data.npy", latihX)
-np.save("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_10data.npy", latihY)
-np.save("temp_train_test_data/testX_256_4Class_OU-MN-MT-Anoa_10data.npy", cobaX)
-np.save("temp_train_test_data/testY_256_4Class_OU-MN-MT-Anoa_10data.npy", cobaY)
+np.save("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_test.npy", latihX)
+np.save("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_test.npy", latihY)
+np.save("temp_train_test_data/testX_256_4Class_OU-MN-MT-Anoa_test.npy", cobaX)
+np.save("temp_train_test_data/testY_256_4Class_OU-MN-MT-Anoa_test.npy", cobaY)

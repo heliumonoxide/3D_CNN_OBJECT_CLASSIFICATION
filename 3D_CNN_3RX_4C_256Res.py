@@ -26,21 +26,29 @@ def model_bryan():
 
     # model1.add(MaxPooling3D(pool_size=(3, 3, 3), strides=(2, 2, 2), padding="valid", input_shape=(256, 256, 256, 3)))
     # layer 1
-    model1.add(Conv3D(8, (3, 3, 3), padding='same', activation='relu', input_shape=(256, 256, 256, 3)))  # dengan padding='same' output dari konvolusi hasilnya akan sama dengan ukuran inputnya, dengan cara menambahkan angka 0 di sisanya
-    model1.add(Conv3D(8, (3, 3, 3), padding='same', activation='relu'))  # dengan padding='same' output dari konvolusi hasilnya akan sama dengan ukuran inputnya, dengan cara menambahkan angka 0 di sisanya
+    model1.add(Conv3D(16, (7, 7, 7), padding='same', activation='relu', data_format="channels_last" ,input_shape=(256, 256, 256, 3), strides=(2, 2, 2)))  # dengan padding='same' output dari konvolusi hasilnya akan sama dengan ukuran inputnya, dengan cara menambahkan angka 0 di sisanya
 
     model1.add(
-        MaxPooling3D(pool_size=(9, 9, 9), strides = (9, 9, 9)))  # Mengambil nilai maksimum. bisa juga pool_sizenya 3x3 5x5 9x9
+        MaxPooling3D(pool_size=(3, 3, 3), strides = (2, 2, 2)))  # Mengambil nilai maksimum. bisa juga pool_sizenya 3x3 5x5 9x9
     
     # layer 2
-    model1.add(Conv3D(16, (3, 3, 3), padding='same', activation='relu'))
-    model1.add(Conv3D(16, (3, 3, 3), padding='same', activation='relu'))
-    model1.add(MaxPooling3D(pool_size=(9, 9, 9), strides = (9, 9, 9)))
-
-    # layer 3
-    # model1.add(Conv3D(32, (3, 3, 3), padding='same', activation='relu'))
-    # model1.add(Conv3D(32, (3, 3, 3), padding='same', activation='relu'))
-    # model1.add(MaxPooling3D(pool_size=(3, 3, 3), strides=(3, 3, 3)))
+    model1.add(Conv3D(32, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(32, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(32, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(32, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(64, (3, 3, 3), padding='same', activation='relu', strides=(2, 2, 2)))
+    model1.add(Conv3D(64, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(64, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(64, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(128, (3, 3, 3), padding='same', activation='relu', strides=(2, 2, 2)))
+    model1.add(Conv3D(128, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(128, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(128, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(256, (3, 3, 3), padding='same', activation='relu', strides=(2, 2, 2)))
+    model1.add(Conv3D(256, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(256, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(Conv3D(256, (3, 3, 3), padding='same', activation='relu'))
+    model1.add(AveragePooling3D(pool_size=(9, 9, 9), strides = (9, 9, 9)))
 
     # layer Hidden
     model1.add(Flatten())  # karena masih 2 dimensi, ubah ke 1 dimensi
@@ -80,10 +88,10 @@ def plot_acc_lost(MODEL_SAVE_FOLDER_PATH, history, n_fold):
     plt.ylim(0, 1)
     plt.legend()
 
-    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc/'):
-        os.mkdir(MODEL_SAVE_FOLDER_PATH+ n_fold + '/' + 'plot_acc/')
+    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc/'):
+        os.mkdir(MODEL_SAVE_FOLDER_PATH+ str(n_fold) + '/' + 'plot_acc/')
 
-    plt.savefig(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc/' + 'acc_plot.jpg')
+    plt.savefig(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc/' + 'acc_plot.jpg')
     # plt.show()
     plt.close()
 
@@ -96,10 +104,10 @@ def plot_acc_lost(MODEL_SAVE_FOLDER_PATH, history, n_fold):
     plt.ylim(0, 1)
     plt.legend()
 
-    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_loss/'):
-        os.mkdir(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_loss/')
+    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_loss/'):
+        os.mkdir(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_loss/')
 
-    plt.savefig(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_loss/' + 'loss_plot.jpg')
+    plt.savefig(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_loss/' + 'loss_plot.jpg')
     #plt.show()
     plt.close()
 
@@ -114,10 +122,10 @@ def plot_acc_lost(MODEL_SAVE_FOLDER_PATH, history, n_fold):
 
     plt.legend()
 
-    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc_lost/'):
-        os.mkdir(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc_lost/')
+    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc_lost/'):
+        os.mkdir(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc_lost/')
 
-    plt.savefig(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc_lost/' + 'acc_loss_plot.jpg')
+    plt.savefig(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc_lost/' + 'acc_loss_plot.jpg')
     # plt.show()
     plt.close()
 
@@ -173,7 +181,7 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
     f.close()
 
     print("The time of execution of above program is :", (end - start) * 10 ** 3, "ms")
-    plot_acc_lost(MODEL_SAVE_FOLDER_PATH+object+'/', history)
+    plot_acc_lost(MODEL_SAVE_FOLDER_PATH+object+'/', history, n_fold)
     print("\n training is done!! \n")
 
     # # Print Validation Loss and Accuracy
@@ -186,7 +194,7 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
 def k_fold_training(n_folds,model_save_path,batch_size,epochs):
     model_history=[]
     alpha = 0.0001
-    objek = "OU-MN-MT-Anoa-Test-stride9"
+    objek = "OU-MN-MT-Anoa-Test-stride9-100data-lr0.0001"
     model = model_bryan()
     data_latih = np.load("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_25data.npy")
     label_data_latih = np.load("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_25data.npy")

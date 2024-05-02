@@ -80,10 +80,10 @@ def plot_acc_lost(MODEL_SAVE_FOLDER_PATH, history, n_fold):
     plt.ylim(0, 1)
     plt.legend()
 
-    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc/'):
-        os.mkdir(MODEL_SAVE_FOLDER_PATH+ n_fold + '/' + 'plot_acc/')
+    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc/'):
+        os.mkdir(MODEL_SAVE_FOLDER_PATH+ str(n_fold) + '/' + 'plot_acc/')
 
-    plt.savefig(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc/' + 'acc_plot.jpg')
+    plt.savefig(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc/' + 'acc_plot.jpg')
     # plt.show()
     plt.close()
 
@@ -96,10 +96,10 @@ def plot_acc_lost(MODEL_SAVE_FOLDER_PATH, history, n_fold):
     plt.ylim(0, 1)
     plt.legend()
 
-    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_loss/'):
-        os.mkdir(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_loss/')
+    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_loss/'):
+        os.mkdir(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_loss/')
 
-    plt.savefig(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_loss/' + 'loss_plot.jpg')
+    plt.savefig(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_loss/' + 'loss_plot.jpg')
     #plt.show()
     plt.close()
 
@@ -114,10 +114,10 @@ def plot_acc_lost(MODEL_SAVE_FOLDER_PATH, history, n_fold):
 
     plt.legend()
 
-    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc_lost/'):
-        os.mkdir(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc_lost/')
+    if not os.path.exists(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc_lost/'):
+        os.mkdir(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc_lost/')
 
-    plt.savefig(MODEL_SAVE_FOLDER_PATH + n_fold + '/' + 'plot_acc_lost/' + 'acc_loss_plot.jpg')
+    plt.savefig(MODEL_SAVE_FOLDER_PATH + str(n_fold) + '/' + 'plot_acc_lost/' + 'acc_loss_plot.jpg')
     # plt.show()
     plt.close()
 
@@ -202,5 +202,5 @@ def k_fold_training(n_folds,model_save_path,batch_size,epochs):
 jumlah_n_folds=2
 folder_simpan_weight='processed_cnn/weight_hasil/'
 Batch_Size = 4
-Epochs=80
+Epochs=120
 k_fold_training(jumlah_n_folds,folder_simpan_weight,Batch_Size,Epochs)

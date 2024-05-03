@@ -199,7 +199,7 @@ def k_fold_training(n_folds,model_save_path,batch_size,epochs):
         alpha = alpha * 0.1
     return model_history
 
-jumlah_n_folds=2
+jumlah_n_folds=1
 folder_simpan_weight='processed_cnn/weight_hasil/'
 Batch_Size = 4
 Epochs=120

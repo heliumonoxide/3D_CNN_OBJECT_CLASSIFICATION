@@ -173,7 +173,7 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
     f.close()
 
     print("The time of execution of above program is :", (end - start) * 10 ** 3, "ms")
-    plot_acc_lost(MODEL_SAVE_FOLDER_PATH+object+'/', history)
+    plot_acc_lost(MODEL_SAVE_FOLDER_PATH+object+'/', history, n_fold)
     print("\n training is done!! \n")
 
     # # Print Validation Loss and Accuracy
@@ -186,7 +186,7 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
 def k_fold_training(n_folds,model_save_path,batch_size,epochs):
     model_history=[]
     alpha = 0.0001
-    objek = "OU-MN-MT-Anoa-Test-stride9"
+    objek = "OU-MN-MT-Anoa-Test_stride9_120epoch_1fold"
     model = model_bryan()
     data_latih = np.load("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_25data.npy")
     label_data_latih = np.load("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_25data.npy")

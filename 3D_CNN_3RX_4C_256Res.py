@@ -10,6 +10,7 @@ from tensorflow.keras.layers import AveragePooling3D # type: ignore
 from tensorflow.keras.layers import Flatten # type: ignore
 from tensorflow.keras.layers import Dense # type: ignore
 from tensorflow.keras.optimizers import Adam # type: ignore
+from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 #from imutils import paths
 from tensorflow.keras.callbacks import ModelCheckpoint # type: ignore
@@ -186,8 +187,8 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
 def k_fold_training(n_folds,model_save_path,batch_size,epochs):
     model_history=[]
     alpha = 0.0001
-    objek = "OU-MN-MT-Anoa-Test_stride9_120epoch_1fold"
-    model = model_bryan()
+    objek = "OU-MN-MT-Anoa-Test_stride9_continue"
+    model = load_model("E:/3D_CNN_OBJECT_CLASSIFICATION/processed_cnn/weight_hasil/OU-MN-MT-Anoa-Test-stride9/1/best_weight.hdf5")
     data_latih = np.load("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_25data.npy")
     label_data_latih = np.load("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_25data.npy")
     data_uji = np.load("temp_train_test_data/testX_256_4Class_OU-MN-MT-Anoa_25data.npy")
@@ -196,11 +197,11 @@ def k_fold_training(n_folds,model_save_path,batch_size,epochs):
         print("Training on Fold: ", i+1)
         history=model_train(model_save_path, data_latih, label_data_latih, data_uji, label_data_uji, batch_size,epochs, i+1, alpha, model, objek)
         model_history.append(history)
-        alpha = alpha * 0.1
+        alpha = alpha * 0.8
     return model_history
 
-jumlah_n_folds=1
+jumlah_n_folds=4
 folder_simpan_weight='processed_cnn/weight_hasil/'
 Batch_Size = 4
-Epochs=120
+Epochs=80
 k_fold_training(jumlah_n_folds,folder_simpan_weight,Batch_Size,Epochs)

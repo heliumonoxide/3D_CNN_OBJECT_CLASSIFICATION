@@ -1,0 +1,11 @@
+                   precision    recall  f1-score   support
+
+             Anoa       1.00      0.90      0.95        10
+Makaka_Nemestrina       0.80      1.00      0.89        12
+  Makaka_Tonkeana       1.00      0.93      0.96        14
+        OrangUtan       1.00      0.92      0.96        12
+
+         accuracy                           0.94        48
+        macro avg       0.95      0.94      0.94        48
+     weighted avg       0.95      0.94      0.94        48
+

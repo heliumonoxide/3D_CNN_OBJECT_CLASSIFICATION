@@ -185,24 +185,25 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
     return history
 
 def k_fold_training(n_folds,model_save_path,batch_size,epochs):
-    model_history=[]
-    alpha = 0.0001
-    objek = "OU-MN-MT-Anoa-500epoch-stride9-3fold-0.0001lr-0.75bagi-newmodel2"
+    # model_history=[]
+    alpha = 0.00001
+    objek = "OU-MN-MT-Anoa-200epoch-stride9-4fold-0.00001lr-120data-newmodel2"
     # model = load_model("E:/3D_CNN_OBJECT_CLASSIFICATION/processed_cnn/weight_hasil/OU-MN-MT-Anoa-Test-stride9/1/best_weight.hdf5")
-    model = model_bryan()
-    data_latih = np.load("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_25data.npy")
-    label_data_latih = np.load("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_25data.npy")
-    data_uji = np.load("temp_train_test_data/testX_256_4Class_OU-MN-MT-Anoa_25data.npy")
-    label_data_uji = np.load("temp_train_test_data/testY_256_4Class_OU-MN-MT-Anoa_25data.npy")
+    data_latih = np.load("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_30data.npy")
+    label_data_latih = np.load("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_30data.npy")
+    data_uji = np.load("temp_train_test_data/testX_256_4Class_OU-MN-MT-Anoa_30data.npy")
+    label_data_uji = np.load("temp_train_test_data/testY_256_4Class_OU-MN-MT-Anoa_30data.npy")
     for i in range(n_folds):
+        model = model_bryan()
         print("Training on Fold: ", i+1)
-        history=model_train(model_save_path, data_latih, label_data_latih, data_uji, label_data_uji, batch_size,epochs, i+1, alpha, model, objek)
-        model_history.append(history)
-        alpha = alpha * 0.8
-    return model_history
+        model_train(model_save_path, data_latih, label_data_latih, data_uji, label_data_uji, batch_size,epochs, i+1, alpha, model, objek)
+        # model_history.append(history)
+        # alpha = alpha * 0.8
+        del model
+    # return model_history
 
-jumlah_n_folds=3
+jumlah_n_folds=4
 folder_simpan_weight='processed_cnn/weight_hasil/'
 Batch_Size = 4
-Epochs=500
+Epochs=200
 k_fold_training(jumlah_n_folds,folder_simpan_weight,Batch_Size,Epochs)

@@ -7,7 +7,7 @@ import datetime as dt
 import seaborn as sn
 import matplotlib.pyplot as plt
 
-objek = 'OU-MN-MT-Anoa'
+objek = 'OU-MN-MT-Anoa-350epoch-stride9-2fold-0.0001lr-0.8bagi-120data-newmodel2'
 target = ['Anoa','Makaka_Nemestrina','Makaka_Tonkeana','OrangUtan']
 
 
@@ -18,8 +18,8 @@ def validate_data():
     cobaY = np.load(output_test)
 
     waktuPrediksiAwal = dt.datetime.now()
-    model_loaded = load_model("./processed_cnn/weight_hasil/"+ objek +"/1/best_weight.hdf5")
-    predictions = model_loaded.predict(cobaX, batch_size=1)
+    model_loaded = load_model("./processed_cnn/weight_hasil/"+ objek +"/2/best_weight.hdf5")
+    predictions = model_loaded.predict(cobaX, batch_size=8)
 
     #menampilkan confusion matrix data uji
     confusion_matrix = metrics.confusion_matrix(cobaY.argmax(axis=1),predictions.argmax(axis=1))

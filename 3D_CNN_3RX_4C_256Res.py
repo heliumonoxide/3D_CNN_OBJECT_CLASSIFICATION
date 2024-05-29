@@ -186,8 +186,8 @@ def model_train(MODEL_SAVE_FOLDER_PATH, train_data, train_label, valid_data, val
 
 def k_fold_training(n_folds,model_save_path,batch_size,epochs):
     # model_history=[]
-    alpha = 0.00001
-    objek = "OU-MN-MT-Anoa-200epoch-stride9-4fold-0.00001lr-120data-newmodel2"
+    alpha = 0.0001
+    objek = "OU-MN-MT-Anoa-350epoch-stride9-4fold-0.0001lr-120data-newmodel2-Adam_opt"
     # model = load_model("E:/3D_CNN_OBJECT_CLASSIFICATION/processed_cnn/weight_hasil/OU-MN-MT-Anoa-Test-stride9/1/best_weight.hdf5")
     data_latih = np.load("temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_30data.npy")
     label_data_latih = np.load("temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_30data.npy")
@@ -205,5 +205,5 @@ def k_fold_training(n_folds,model_save_path,batch_size,epochs):
 jumlah_n_folds=4
 folder_simpan_weight='processed_cnn/weight_hasil/'
 Batch_Size = 4
-Epochs=200
+Epochs=350
 k_fold_training(jumlah_n_folds,folder_simpan_weight,Batch_Size,Epochs)

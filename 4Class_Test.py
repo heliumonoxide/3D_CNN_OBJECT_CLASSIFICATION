@@ -12,8 +12,8 @@ target = ['Anoa','Makaka_Nemestrina','Makaka_Tonkeana','OrangUtan']
 
 
 def validate_data():
-    data_test = "./temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_test.npy"
-    output_test = "./temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_test.npy"
+    data_test = "./temp_train_test_data/trainX_256_4Class_OU-MN-MT-Anoa_10data.npy"
+    output_test = "./temp_train_test_data/trainY_256_4Class_OU-MN-MT-Anoa_10data.npy"
     cobaX = np.load(data_test)
     cobaY = np.load(output_test)
 

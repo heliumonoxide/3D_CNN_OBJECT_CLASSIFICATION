@@ -95,7 +95,12 @@ import numpy as np
 #     model1.summary()
 #     return model1
 
+# ==========================================================================
+# ===================== PLOTTING FOR DATA ILLUSTRATION =====================
+# ==========================================================================
+
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 # Given data
 class1_data_rx1='processed_data/datafft_Anoa_1_1mtr.npy'
@@ -199,6 +204,7 @@ class1_data_rx3='processed_data/datafft_OrangUtan_1_1mtr.npy'
 # ==========================================================================
 # =============== PLOTTING FOR DATA ILLUSTRATION 1 Receiver ================
 # ==========================================================================
+import math
 
 a = np.load(class1_data_rx1)
 b = np.load(class1_data_rx2)
@@ -208,22 +214,39 @@ a = np.float32(a)
 b = np.float32(b)
 c = np.float32(c)
 
-plt.plot(a, label='Rx1 Anoa')
-plt.plot(b, label='Rx1 Makaka Nemestrina')
-plt.plot(c, label='Rx1 Orangutan')
-plt.axis((0, 512, 0, 1))
-plt.ylabel('Value')
-plt.xlabel('Index')
+original_array = list(range(1, len(a)+1))
+min_orig = 1
+max_orig = len(a)
+min_mapped = 1.0
+max_mapped = 10.0
+
+mapped_array = [min_mapped + ((x - min_orig) / (max_orig - min_orig)) * (max_mapped - min_mapped) for x in original_array]
+
+# For verification, let's print the first and last 10 elements
+first_10_elements = mapped_array[:10]
+last_10_elements = mapped_array[-10:]
+
+
+# plt.plot(a, label='Rx1 Anoa')
+plt.plot(mapped_array, b, label='Rx1 Makaka Nemestrina')
+# plt.plot(c, label='Rx1 Orangutan')
+# plt.axis((0, 50, 0, 1))
+plt.ylabel('Magnitude')
+plt.xlabel('Frequency (Hz)')
 plt.legend()
 plt.show()
 plt.close()
+print(len(a))
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
-L = len(a)
-Fs = 1000 # Frequency sampling
-T = 1/Fs        
-t = np.arange(0, L) * T 
-sp = np.fft.fft(np.sin(t))
-freq = np.fft.fftfreq(t.shape[-1])
-plt.plot(freq, sp.real, freq, sp.imag)
+# L = len(a)
+# Fs = 1000 # Frequency sampling
+# T = 1/Fs        
+# t = np.arange(0, L) * T 
+# sp = np.fft.fft(np.sin(t))
+# freq = np.fft.fftfreq(t.shape[-1])
+# plt.plot(freq, sp.real, freq, sp.imag)
+# # plt.legend()
+
+# plt.show()
